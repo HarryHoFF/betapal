@@ -26,7 +26,7 @@ const mockTransactions: Transaction[] = [
     amount: 7.69,
     recipient: 'Deutsche Post AG',
     description: 'Shipping fee',
-    date: new Date('2025-09-08'),
+    date: new Date('2025-09-10'),
     status: 'completed'
   },
   {

@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { ArrowUpRight, ArrowDownLeft, CreditCard, RotateCcw, Edit2, Trash2 } from 'lucide-react';
+import { ArrowUpRight, ArrowDownLeft, CreditCard, RotateCcw } from 'lucide-react';
 import { useTransactions } from '../../context/TransactionContext';
 import { Transaction } from '../../types';
-import TransactionEditModal from './TransactionEditModal';
 
 const TransactionList: React.FC = () => {
-  const { transactions, deleteTransaction } = useTransactions();
-  const [editingTransaction, setEditingTransaction] = useState<Transaction | null>(null);
+  const { transactions } = useTransactions();
 
   const getTransactionIcon = (type: string) => {
     switch (type) {
@@ -98,20 +96,6 @@ const TransactionList: React.FC = () => {
                     {transaction.type === 'sent' || transaction.type === 'payment' ? '-' : '+'}
                     {formatCurrency(transaction.amount)}
                   </p>
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity flex space-x-2">
-                    <button
-                      onClick={() => setEditingTransaction(transaction)}
-                      className="p-1 text-gray-400 hover:text-blue-600 transition-colors"
-                    >
-                      <Edit2 className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => deleteTransaction(transaction.id)}
-                      className="p-1 text-gray-400 hover:text-red-600 transition-colors"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
                 </div>
               </div>
             </div>
@@ -119,12 +103,6 @@ const TransactionList: React.FC = () => {
         </div>
       </div>
 
-      {editingTransaction && (
-        <TransactionEditModal
-          transaction={editingTransaction}
-          onClose={() => setEditingTransaction(null)}
-        />
-      )}
     </>
   );
 };
